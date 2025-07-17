@@ -2,17 +2,8 @@
 
 # Ця програма створює невеличкий CLI застосунок для збереження імен користувачів та їхніх телефонних номерів
 
-from collections import UserDict
-
-class ChatBot(UserDict):
-    def __init__(self):
-        super().__init__()
-
-    def __str__(self):
-        return "\n".join(f"{name}: {phone}" for name, phone in self.data.items())
-
 def main():
-    contacts = ChatBot()
+    contacts = {}
     print("Welcome to the assistant bot!")
     while True:
         user_input = input("Enter a command: ")
@@ -49,6 +40,8 @@ def input_error(func):
 
 # Парсер команд
 def parse_input(user_input):
+    if not user_input.strip():
+        return "", []
     cmd, *args = user_input.strip().split()
     return cmd.lower(), args
 

@@ -7,8 +7,8 @@ def generator_numbers(text: str) -> Generator[float, None, None]:
     """
     Генерує всі дійсні числа з тексту, які відокремлені пробілами.
     """
-    # Шукаємо дійсні числа у тексті (відокремлені пробілами або межами рядка)
-    for match in re.findall(r"(?<=\s)\d+\.\d+(?=\s)|^\d+\.\d+(?=\s)|(?<=\s)\d+\.\d+$", text):
+    # Шукаємо дійсні числа у тексті
+    for match in re.findall(r" \d+\.\d+ ", text):
         yield float(match)
 
 def sum_profit(text: str, func: Callable[[str], Generator[float, None, None]]) -> float:
