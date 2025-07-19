@@ -31,11 +31,11 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except KeyError:
-            return "Enter user name."
+            return "Name not found."
         except ValueError:
             return "Give me name and phone please."
         except IndexError:
-            return "Enter the argument for the command."
+            return "Enter the right command."
     return inner
 
 # Парсер команд
@@ -48,8 +48,6 @@ def parse_input(user_input):
 # Додавання контакту
 @input_error
 def add_contact(args, contacts):
-    if len(args) != 2:
-        return "Usage: add <name> <phone>"
     name, phone = args
     contacts[name] = phone
     return "Contact added."
@@ -57,26 +55,16 @@ def add_contact(args, contacts):
 # Зміна контакту
 @input_error
 def change_contact(args, contacts):
-    if len(args) != 2:
-        return "Usage: change <name> <new_phone>"
     name, phone = args
-    if name in contacts:
-        contacts[name] = phone
-        return "Contact updated."
-    else:
-        return "Contact not found."
-
+    contacts[name] = phone
+    return "Contact updated."
+    
 # Виводить номер телефону вибраного користувача
 @input_error
 def show_phone(args, contacts):
-    if len(args) != 1:
-        return "Usage: phone <name>"
     name = args[0]
-    if name in contacts:
-        return f"{name}: {contacts[name]}"
-    else:
-        return "Contact not found."
-
+    return f"{name}: {contacts[name]}"
+    
 # Виводить усі збережені контакти
 @input_error
 def show_all(contacts):
